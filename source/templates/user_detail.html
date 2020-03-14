@@ -1,0 +1,12 @@
+{% extends '_base.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block body %}
+  <h3>Данные пользователя</h3>
+  <ul class="list-group">
+    <li class="list-group-item">Логин: {{ user_obj.username|default:'Не указано' }}</li>
+    <li class="list-group-item">Имя: {{ user_obj.first_name|default:'Не указано' }}</li>
+    <li class="list-group-item">Фамилия: {{ user_obj.last_name|default:'Не указано' }}</li>
+  </ul>
+{% endblock %}

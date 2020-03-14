@@ -54,7 +54,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
           {% if user.is_authenticated %}
-            <a class="dropdown-item" href="#">Личный кабинет</a>
+            <a class="dropdown-item" href="{% url 'user_detail' user.pk %}">Личный кабинет</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
           {% else %}
