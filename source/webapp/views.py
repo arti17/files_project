@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from django.views.generic import DetailView, ListView, CreateView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
 from webapp.models import File
 
@@ -21,9 +22,21 @@ class FileCreateView(CreateView):
     fields = ['name', 'file', ]
 
     def form_valid(self, form):
-        if self.request.user:
+        if self.request.user.username:
             form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class FileUpdateView(UpdateView):
+    model = File
+    fields = ['name', 'file', ]
+    template_name = 'file_edit.html'
+
+
+class FileDeleteView(DeleteView):
+    model = File
+    template_name = 'file_delete.html'
+    success_url = reverse_lazy('home')
 
 
 class UserDetailView(DetailView):
