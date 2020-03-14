@@ -53,7 +53,7 @@ class FileDetailView(UserPassesTestMixin, DetailView):
 
     def test_func(self):
         file = self.get_object()
-        return self.request.user == file.author or self.request.user in file.private.all()
+        return file.access != 'private' or self.request.user == file.author or self.request.user in file.private.all()
 
 
 class FileCreateView(CreateView):
