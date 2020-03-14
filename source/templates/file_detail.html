@@ -15,6 +15,17 @@
     {% endif %}
 
     <li class="list-group-item">Дата добавления: {{ file.created_at }}</li>
+    <li class="list-group-item" id="private_users">Пользователи имеющие доступ:
+      {% for user in file.private.all %}
+        <b><span id="user-{{ user.pk }}">{{ user.username }}
+          <button type="button" class="btn btn-danger btn-sm" onclick="deletePrivateUser({{ file.pk }}, )">Исключить</button>
+        </span>,
+        </b>
+      {% empty %}
+        <b>Доступы не предоставлены</b>
+      {% endfor %}
+
+    </li>
     <li class="list-group-item">
       <a href="{{ file.file.url }}" class="btn btn-sm btn-success">Скачать</a>
       {% if request.user.is_authenticated and file.author.pk == request.user.pk or request.user.perm.webapp.change_file %}
@@ -23,7 +34,74 @@
       {% if request.user.is_authenticated and file.author.pk == request.user.pk or request.user.perm.webapp.delete_file %}
         <a href="{% url 'file_delete' file.pk %}" class="btn btn-sm btn-danger ">Удалить</a>
       {% endif %}
-
     </li>
   </ul>
+  <br>
+  <div class="alert alert-danger d-none" role="alert" id="error"> Пользователя не существует или он уже добавлен</div>
+  {% if file.access == 'private' %}
+    <form action="">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Введите имя пользователя, для предоставления доступа"
+               id="user_name">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="add_user">Добавить</button>
+        </div>
+      </div>
+    </form>
+  {% endif %}
+{% endblock %}
+
+{% block script %}
+  <script>
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+
+      let delayTimerMobile;
+      let csrftoken = getCookie('csrftoken');
+
+      $('#add_user').on('click', function () {
+          clearTimeout(delayTimerMobile);
+          $('#error').addClass('d-none')
+
+          delayTimerMobile = setTimeout(function () {
+              const user_name = $('#user_name').val();
+              $.ajax({
+                  method: 'GET',
+                  url: '/search_user',
+                  data: {
+                      'search_user': user_name,
+                      'file_id': {{ file.pk }}
+                  },
+                  headers: {
+                      "X-CSRFToken": csrftoken
+                  },
+                  dataType: 'json',
+                  success: function (data) {
+                      console.log(data)
+                      if (data.user) {
+                          $('#private_users').append(
+                              `<b><span id="">${data.user}</span>, </b>`
+                          )
+                      } else {
+                          $('#error').removeClass('d-none')
+
+                      }
+                  }
+              });
+          }, 300);
+      });
+  </script>
 {% endblock %}

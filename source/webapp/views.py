@@ -1,9 +1,11 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.utils.http import urlencode
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
+from django.views.generic.base import View
 
 from webapp.forms import SearchForm, FullCreateFile, AnonymousCreateFile
 from webapp.models import File
@@ -45,9 +47,13 @@ class HomeView(ListView):
         return None
 
 
-class FileDetailView(DetailView):
+class FileDetailView(UserPassesTestMixin, DetailView):
     template_name = 'file_detail.html'
     model = File
+
+    def test_func(self):
+        file = self.get_object()
+        return self.request.user == file.author or self.request.user in file.private.all()
 
 
 class FileCreateView(CreateView):
@@ -90,3 +96,21 @@ class UserDetailView(DetailView):
     model = User
     template_name = 'user_detail.html'
     context_object_name = 'user_obj'
+
+
+class SearchUserView(View):
+    def get(self, request):
+        search_user = request.GET.get('search_user').strip()
+        file_id = request.GET.get('file_id')
+        context = {}
+        try:
+            user = User.objects.get(username=search_user)
+
+            file = File.objects.get(pk=file_id)
+            if user not in file.private.all():
+                file.private.add(user)
+                context['user'] = user.username
+        except:
+            context['error'] = 'Пользователя не существует'
+
+        return JsonResponse(context)
