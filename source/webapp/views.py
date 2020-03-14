@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.urls import reverse_lazy
@@ -50,7 +51,7 @@ class FileDetailView(DetailView):
 class FileCreateView(CreateView):
     template_name = 'file_create.html'
     model = File
-    fields = ['name', 'file', ]
+    fields = ['name', 'file', 'access']
 
     def form_valid(self, form):
         if self.request.user.username:
@@ -58,16 +59,24 @@ class FileCreateView(CreateView):
         return super().form_valid(form)
 
 
-class FileUpdateView(UpdateView):
+class FileUpdateView(UserPassesTestMixin, UpdateView):
     model = File
-    fields = ['name', 'file', ]
+    fields = ['name', 'file', 'access']
     template_name = 'file_edit.html'
 
+    def test_func(self):
+        file = self.get_object()
+        return file.author.pk == self.request.user.pk or self.request.user.has_perm('webapp.change_file')
 
-class FileDeleteView(DeleteView):
+
+class FileDeleteView(UserPassesTestMixin, DeleteView):
     model = File
     template_name = 'file_delete.html'
     success_url = reverse_lazy('home')
+
+    def test_func(self):
+        file = self.get_object()
+        return file.author.pk == self.request.user.pk or self.request.user.has_perm('webapp.change_file')
 
 
 class UserDetailView(DetailView):
