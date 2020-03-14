@@ -1,9 +1,13 @@
 from django.contrib.auth.models import User
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import DetailView, ListView
+
+from webapp.models import File
 
 
-class HomeView(TemplateView):
+class HomeView(ListView):
     template_name = 'home.html'
+    model = File
+    ordering = '-created_at'
 
 
 class UserDetailView(DetailView):

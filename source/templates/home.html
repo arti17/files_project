@@ -3,5 +3,28 @@
 {% block title %}Главная{% endblock %}
 
 {% block body %}
-  <h1>Test</h1>
+  <h3 class="text-center">Все файлы</h3>
+  <table class="table table-sm">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Название файла</th>
+      <th scope="col">Автор</th>
+      <th scope="col">Дата загрузки</th>
+      <th scope="col">Ссылка на скачивание</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for file in file_list %}
+      <tr>
+        <th scope="row">{{ file.name }}</th>
+        <td>{{ file.author.username|default_if_none:'Аноним' }}</td>
+        <td>{{ file.created_at }}</td>
+        <td><a href="{{ file.file.url }}" class="btn btn-sm btn-primary ">Скачать</a></td>
+      </tr>
+    {% endfor %}
+
+
+    </tbody>
+  </table>
+
 {% endblock %}
