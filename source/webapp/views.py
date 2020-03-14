@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.utils.http import urlencode
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
-from webapp.forms import SearchForm
+from webapp.forms import SearchForm, FullCreateFile, AnonymousCreateFile
 from webapp.models import File
 
 
@@ -51,10 +51,15 @@ class FileDetailView(DetailView):
 class FileCreateView(CreateView):
     template_name = 'file_create.html'
     model = File
-    fields = ['name', 'file', 'access']
+
+    def get_form_class(self):
+        if self.request.user.id:
+            return FullCreateFile
+        else:
+            return AnonymousCreateFile
 
     def form_valid(self, form):
-        if self.request.user.username:
+        if self.request.user.id:
             form.instance.author = self.request.user
         return super().form_valid(form)
 
@@ -66,7 +71,7 @@ class FileUpdateView(UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         file = self.get_object()
-        return file.author.pk == self.request.user.pk or self.request.user.has_perm('webapp.change_file')
+        return self.request.user.is_authenticated or file.author == self.request.user or self.request.user.has_perm('webapp.change_file')
 
 
 class FileDeleteView(UserPassesTestMixin, DeleteView):
@@ -76,7 +81,7 @@ class FileDeleteView(UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         file = self.get_object()
-        return file.author.pk == self.request.user.pk or self.request.user.has_perm('webapp.change_file')
+        return self.request.user.is_authenticated or file.author == self.request.user or self.request.user.has_perm('webapp.delete_file')
 
 
 class UserDetailView(DetailView):
