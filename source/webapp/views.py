@@ -30,8 +30,10 @@ class HomeView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         if self.search_value:
-            query = Q(name__icontains=self.search_value)
+            query = Q(name__icontains=self.search_value) & Q(access='free')
             queryset = queryset.filter(query)
+        else:
+            queryset = queryset.filter(access='free')
         return queryset
 
     def get_search_form(self):
