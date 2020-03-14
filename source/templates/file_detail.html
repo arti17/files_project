@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+
+{% block title %}Файл {{ file.pk }}{% endblock %}
+
+{% block body %}
+  <h3>Информация о файле</h3>
+  <ul class="list-group">
+    <li class="list-group-item">Название: {{ file.name }}</li>
+
+    {% if file.author %}
+      <li class="list-group-item">Автор: <a href="{% url 'user_detail' file.author.pk %}">{{ file.author.username }}</a>
+      </li>
+    {% else %}
+      <li class="list-group-item">Автор: <span>Аноним</span></li>
+    {% endif %}
+
+    <li class="list-group-item">Дата добавления: {{ file.created_at }}</li>
+    <li class="list-group-item"><a href="{{ file.file.url }}" class="btn btn-sm btn-primary ">Скачать</a></li>
+  </ul>
+{% endblock %}

@@ -10,6 +10,11 @@ class HomeView(ListView):
     ordering = '-created_at'
 
 
+class FileDetailView(DetailView):
+    template_name = 'file_detail.html'
+    model = File
+
+
 class UserDetailView(DetailView):
     model = User
     template_name = 'user_detail.html'

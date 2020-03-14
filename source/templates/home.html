@@ -16,8 +16,14 @@
     <tbody>
     {% for file in file_list %}
       <tr>
-        <th scope="row">{{ file.name }}</th>
-        <td>{{ file.author.username|default_if_none:'Аноним' }}</td>
+        <th scope="row"><a href="{% url 'file_detail' file.pk %}">{{ file.name }}</a></th>
+
+        {% if file.author %}
+          <td><a href="{% url 'user_detail' file.author.pk %}">{{ file.author.username }}</a></td>
+        {% else %}
+          <td>Аноним</td>
+        {% endif %}
+
         <td>{{ file.created_at }}</td>
         <td><a href="{{ file.file.url }}" class="btn btn-sm btn-primary ">Скачать</a></td>
       </tr>
