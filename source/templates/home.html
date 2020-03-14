@@ -4,6 +4,8 @@
 
 {% block body %}
   <h3 class="text-center">Все файлы</h3>
+  {% include 'include/search_form.html' %}
+  <br>
   <table class="table table-sm">
     <thead class="thead-light">
     <tr>
@@ -28,9 +30,14 @@
         <td><a href="{{ file.file.url }}" class="btn btn-sm btn-primary ">Скачать</a></td>
       </tr>
     {% endfor %}
-
-
     </tbody>
   </table>
+  <br>
+
+  {% if is_paginated %}
+    <div class="d-flex justify-content-center">
+      {% include 'include/pagination.html' %}
+    </div>
+  {% endif %}
 
 {% endblock %}

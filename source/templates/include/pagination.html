@@ -1,0 +1,44 @@
+<nav>
+  <form action="" method="get" class="text-center">
+    <ul class="pagination">
+      <li class="">
+        <a class="page-link text-success" href="?{% if query %}{{ query }}&{% endif %}page=1" tabindex="-1"
+           aria-disabled="true">В начало</a>
+      </li>
+
+      {% if page_obj.has_previous %}
+        <li class="">
+          <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.previous_page_number }}"
+             tabindex="-1"
+             aria-disabled="true">Предыдущая</a>
+        </li>
+      {% else %}
+        <li class="page-item">
+          <a class="page-link" aria-disabled="false">Предыдущая</a>
+        </li>
+      {% endif %}
+      <span class="current">
+            </span>
+
+      <li class="page-item" style="display: inline;">
+        <span class=""><input class="form-control text-center input-sm" type="text" name="page"
+                              value="{{ page_obj.number }}" maxlength="3">
+          Всего страниц: {{ page_obj.paginator.num_pages }} </span>
+      </li>
+
+      {% if page_obj.has_next %}
+        <li class="">
+          <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.next_page_number }}">Следующая</a>
+        </li>
+      {% else %}
+        <li class="page-item">
+          <a class="page-link" aria-disabled="false">Следующая</a>
+        </li>
+      {% endif %}
+      <li class="">
+        <a class="page-link text-success"
+           href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.paginator.num_pages }}">В конец</a>
+      </li>
+    </ul>
+  </form>
+</nav>
