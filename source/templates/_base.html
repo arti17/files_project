@@ -45,13 +45,21 @@
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
-          Авторизация
+          {% if user.is_authenticated %}
+            {{ user.username }}
+          {% else %}
+            Авторизация
+          {% endif %}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Личный кабинет</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Выйти</a>
-          <a class="dropdown-item" href="#">Вход</a>
+
+          {% if user.is_authenticated %}
+            <a class="dropdown-item" href="#">Личный кабинет</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+          {% else %}
+            <a class="dropdown-item" href="{% url 'login' %}">Вход</a>
+          {% endif %}
         </div>
       </div>
     </div>
