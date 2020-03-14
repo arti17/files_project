@@ -5,8 +5,35 @@
 {% block body %}
   <h3>Данные пользователя</h3>
   <ul class="list-group">
-    <li class="list-group-item">Логин: {{ user_obj.username|default:'Не указано' }}</li>
-    <li class="list-group-item">Имя: {{ user_obj.first_name|default:'Не указано' }}</li>
-    <li class="list-group-item">Фамилия: {{ user_obj.last_name|default:'Не указано' }}</li>
+    <li class="list-group-item">Логин: <b>{{ user_obj.username|default:'Не указано' }}</b></li>
+    <li class="list-group-item">Имя: <b>{{ user_obj.first_name|default:'Не указано' }}</b></li>
+    <li class="list-group-item">Фамилия: <b>{{ user_obj.last_name|default:'Не указано' }}</b></li>
   </ul>
+  <br>
+  <table class="table table-sm">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Название файла</th>
+      <th scope="col">Автор</th>
+      <th scope="col">Дата загрузки</th>
+      <th scope="col">Ссылка</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for file in user_obj.files.all %}
+      <tr>
+        <th scope="row"><a href="{% url 'file_detail' file.pk %}">{{ file.name }}</a></th>
+
+        {% if file.author %}
+          <td><a href="{% url 'user_detail' file.author.pk %}">{{ file.author.username }}</a></td>
+        {% else %}
+          <td>Аноним</td>
+        {% endif %}
+
+        <td>{{ file.created_at }}</td>
+        <td><a href="{{ file.file.url }}" class="btn btn-sm btn-primary ">Скачать</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}
