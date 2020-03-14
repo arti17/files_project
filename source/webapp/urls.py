@@ -11,4 +11,5 @@ urlpatterns = [
     path('file/<int:pk>/update/', views.FileUpdateView.as_view(), name='file_update'),
     path('file/<int:pk>/delete/', views.FileDeleteView.as_view(), name='file_delete'),
     path('search_user/', views.SearchUserView.as_view(), name='search_user'),
+    path('delete_user/', views.DeleteUser.as_view(), name='delete_user'),
 ]

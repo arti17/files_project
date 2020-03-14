@@ -110,7 +110,16 @@ class SearchUserView(View):
             if user not in file.private.all():
                 file.private.add(user)
                 context['user'] = user.username
+                context['user_id'] = user.id
         except:
             context['error'] = 'Пользователя не существует'
 
         return JsonResponse(context)
+
+
+class DeleteUser(View):
+    def get(self, request):
+        file = File.objects.get(pk=int(request.GET['file_id']))
+        user = User.objects.get(id=int(request.GET['user_id']))
+        file.private.remove(user)
+        return JsonResponse({'status': '200'})

@@ -18,11 +18,10 @@
     <li class="list-group-item" id="private_users">Пользователи имеющие доступ:
       {% for user in file.private.all %}
         <b><span id="user-{{ user.pk }}">{{ user.username }}
-          <button type="button" class="btn btn-danger btn-sm" onclick="deletePrivateUser({{ file.pk }}, )">Исключить</button>
-        </span>,
+          <button type="button" class="btn btn-danger btn-sm"
+                  onclick="deletePrivateUser({{ file.pk }}, {{ user.pk }})">Исключить</button>
+        </span>
         </b>
-      {% empty %}
-        <b>Доступы не предоставлены</b>
       {% endfor %}
 
     </li>
@@ -90,18 +89,38 @@
                   },
                   dataType: 'json',
                   success: function (data) {
-                      console.log(data)
+                      let btn = `<b><span id="user-${data.user_id}">${data.user}<button type="button" class="btn btn-danger btn-sm"
+                                      onclick="deletePrivateUser({{ file.pk }}, ${data.user_id})">Исключить</button>
+                               </span></span></b>`
+
                       if (data.user) {
-                          $('#private_users').append(
-                              `<b><span id="">${data.user}</span>, </b>`
-                          )
+                          $('#private_users').append(btn)
                       } else {
                           $('#error').removeClass('d-none')
-
                       }
+                      $('#user_name').val('').change()
                   }
               });
           }, 300);
       });
+
+      function deletePrivateUser(file_id, user_id) {
+          let csrftoken = getCookie('csrftoken');
+          $.ajax({
+              method: 'GET',
+              url: '/delete_user',
+              data: {
+                  file_id: file_id,
+                  user_id: user_id
+              },
+              dataType: 'json',
+              headers: {
+                  "X-CSRFToken": csrftoken
+              },
+              success: function (data) {
+                  $('#user-' + user_id).remove()
+              }
+          })
+      }
   </script>
 {% endblock %}
