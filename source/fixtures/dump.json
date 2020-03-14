@@ -1,0 +1,178 @@
+[
+{
+  "model": "webapp.file",
+  "pk": 20,
+  "fields": {
+    "name": "\u041a\u0440\u0430\u0441\u0438\u0432\u0430\u044f \u043a\u0430\u0440\u0442\u0438\u043d\u043a\u0430 \u0432\u043e\u043b\u043a\u0430",
+    "created_at": "2020-03-14",
+    "author": 1,
+    "access": "free",
+    "file": "files/VOLKI-krasivye-i-ochen-umnye-zhivotnye.jpg"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 21,
+  "fields": {
+    "name": "Alicia Keys - No One.mp3",
+    "created_at": "2020-03-14",
+    "author": null,
+    "access": "free",
+    "file": "files/Alicia_Keys_-_No_One.mp3"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 22,
+  "fields": {
+    "name": "\u0421\u0445\u0435\u043c\u0430 \u0431\u0430\u0437\u044b \u0434\u0430\u043d\u043d\u044b\u0445",
+    "created_at": "2020-03-14",
+    "author": null,
+    "access": "free",
+    "file": "files/3.png"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 23,
+  "fields": {
+    "name": "\u0417\u0430\u043f\u0440\u043e\u0441\u044b \u043a \u0431\u0430\u0437\u0435 \u0434\u0430\u043d\u043d\u044b\u0445",
+    "created_at": "2020-03-14",
+    "author": 2,
+    "access": "free",
+    "file": "files/\u0417\u0430\u043f\u0440\u043e\u0441\u044b.txt"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 24,
+  "fields": {
+    "name": "\u0421\u043a\u0440\u044b\u0442\u044b\u0439 \u0444\u0430\u0439\u043b",
+    "created_at": "2020-03-14",
+    "author": 2,
+    "access": "hidden",
+    "file": "files/manage.py"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 25,
+  "fields": {
+    "name": "\u0417\u043b\u043e\u0439 \u0430\u0434\u043c\u0438\u043d",
+    "created_at": "2020-03-14",
+    "author": null,
+    "access": "free",
+    "file": "files/101_1_1_design_NbTJqxs.png"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 26,
+  "fields": {
+    "name": "\u0424\u043e\u0442\u043e\u0448\u043e\u043f \u043b\u043e\u0433\u043e",
+    "created_at": "2020-03-14",
+    "author": 3,
+    "access": "free",
+    "file": "files/1200px-Adobe_Photoshop_CC_icon.svg.png"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 27,
+  "fields": {
+    "name": "\u0415\u0436\u0438\u043a",
+    "created_at": "2020-03-14",
+    "author": 3,
+    "access": "free",
+    "file": "files/GuMtg_43.jpg"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 28,
+  "fields": {
+    "name": "\u0413\u043e\u0440\u043e\u0434\u0441\u043a\u043e\u0439 \u043a\u043e\u0442)",
+    "created_at": "2020-03-14",
+    "author": null,
+    "access": "free",
+    "file": "files/na_balcone.jpg"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 29,
+  "fields": {
+    "name": "\u041c\u0430\u0442\u0440\u0438\u0446\u0430",
+    "created_at": "2020-03-14",
+    "author": 3,
+    "access": "free",
+    "file": "files/tomswallpapers.com-29641.jpg"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 30,
+  "fields": {
+    "name": "\u041a\u043e\u0433\u0434\u0430?",
+    "created_at": "2020-03-14",
+    "author": 1,
+    "access": "free",
+    "file": "files/motiviruyuschie-oboi.jpg"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 31,
+  "fields": {
+    "name": "Aurora",
+    "created_at": "2020-03-14",
+    "author": 2,
+    "access": "free",
+    "file": "files/aurora_logo.png"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 32,
+  "fields": {
+    "name": "You died)",
+    "created_at": "2020-03-14",
+    "author": 1,
+    "access": "free",
+    "file": "files/Danger.mp4"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 33,
+  "fields": {
+    "name": "\u0410\u043f\u0447\u043a\u043e\u0442",
+    "created_at": "2020-03-14",
+    "author": null,
+    "access": "free",
+    "file": "files/\u0410\u043f\u0447\u043a\u043e\u0442.mp4"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 34,
+  "fields": {
+    "name": "\u041f\u0440\u0438\u0432\u0430\u0442\u043d\u044b\u0439 \u0444\u0430\u0439\u043b",
+    "created_at": "2020-03-14",
+    "author": 3,
+    "access": "private",
+    "file": "files/ios_scan_420859642.pdf"
+  }
+},
+{
+  "model": "webapp.file",
+  "pk": 35,
+  "fields": {
+    "name": "\u0424\u0430\u0439\u043b \u043f\u0440\u0438\u0432\u0430\u0442\u043d\u044b\u0439",
+    "created_at": "2020-03-14",
+    "author": 2,
+    "access": "private",
+    "file": "files/bootstrap_datetimepicker.zip"
+  }
+}
+]

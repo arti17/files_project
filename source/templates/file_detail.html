@@ -17,10 +17,13 @@
     <li class="list-group-item">Дата добавления: {{ file.created_at }}</li>
     <li class="list-group-item">
       <a href="{{ file.file.url }}" class="btn btn-sm btn-success">Скачать</a>
-      {% if request.user.is_authenticated and file.author.pk == request.user.pk or request.user.perm.webapp_change_file %}
+      {% if request.user.is_authenticated and file.author.pk == request.user.pk or request.user.perm.webapp.change_file %}
         <a href="{% url 'file_update' file.pk %}" class="btn btn-sm btn-primary ">Редактировать</a>
+      {% endif %}
+      {% if request.user.is_authenticated and file.author.pk == request.user.pk or request.user.perm.webapp.delete_file %}
         <a href="{% url 'file_delete' file.pk %}" class="btn btn-sm btn-danger ">Удалить</a>
       {% endif %}
+
     </li>
   </ul>
 {% endblock %}
