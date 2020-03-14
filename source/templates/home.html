@@ -27,7 +27,7 @@
         {% endif %}
 
         <td>{{ file.created_at }}</td>
-        <td><a href="{{ file.file.url }}" class="btn btn-sm btn-primary ">Скачать</a></td>
+        <td><a href="{{ file.file.url }}" class="btn btn-sm btn-primary" download>Скачать</a></td>
       </tr>
     {% endfor %}
     </tbody>

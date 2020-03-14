@@ -26,7 +26,7 @@
 
     </li>
     <li class="list-group-item">
-      <a href="{{ file.file.url }}" class="btn btn-sm btn-success">Скачать</a>
+      <a href="{{ file.file.url }}" class="btn btn-sm btn-success" download>Скачать</a>
       {% if request.user.is_authenticated and file.author.pk == request.user.pk or request.user.perm.webapp.change_file %}
         <a href="{% url 'file_update' file.pk %}" class="btn btn-sm btn-primary ">Редактировать</a>
       {% endif %}
