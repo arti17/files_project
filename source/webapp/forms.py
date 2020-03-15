@@ -10,10 +10,10 @@ class SearchForm(forms.Form):
 class FullCreateFile(forms.ModelForm):
     class Meta:
         model = File
-        exclude = ['author']
+        exclude = ['author', 'private']
 
 
 class AnonymousCreateFile(forms.ModelForm):
     class Meta:
         model = File
-        exclude = ['author', 'access']
+        exclude = ['author', 'access', 'private']
